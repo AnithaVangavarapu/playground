@@ -1,9 +1,12 @@
-import GenerateQR from "../../../components/GenerateQR";
+import { ImageUpload } from "../../../commonComponents";
 
 const SDDD = () => {
+  // const handleChange = (val: string) => {
+  //   console.log("time", val);
+  // };
   return (
     <div>
-      <GenerateQR />
+      <ImageUpload />
     </div>
   );
 };
