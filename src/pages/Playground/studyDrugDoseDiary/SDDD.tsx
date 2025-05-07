@@ -1,20 +1,15 @@
-import { Dropdown } from "../../../commonComponents";
+import { Date } from "../../../commonComponents";
 const SDDD = () => {
-  const handleChange = (val: string) => {
+  const handleChange = (val: Date | null) => {
     console.log(val);
   };
-  const options = [
-    { value: "yes", label: "Yes" },
-    { value: "no", label: "No" },
-  ];
+
   return (
     <div>
-      <Dropdown
+      <Date
         onChange={handleChange}
-        options={options}
-        label="SelectYour option"
-        placeholder="Choose your option"
-        error="required"
+        label="SelectYour Date"
+        placeholder="Chose a date"
       />
     </div>
   );
