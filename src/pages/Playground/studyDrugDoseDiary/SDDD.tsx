@@ -1,16 +1,13 @@
-import { Date } from "../../../commonComponents";
+import GenerateQR from "../../../components/GenerateQR";
+
 const SDDD = () => {
-  const handleChange = (val: Date | null) => {
+  const handleChange = (val: string) => {
     console.log(val);
   };
 
   return (
     <div>
-      <Date
-        onChange={handleChange}
-        label="SelectYour Date"
-        placeholder="Chose a date"
-      />
+      <GenerateQR />
     </div>
   );
 };

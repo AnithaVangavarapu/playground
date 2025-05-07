@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
 import { SDDD } from "./pages/Playground/studyDrugDoseDiary";
 import { InsulineDiary } from "./pages/Playground/insulineDiary";
+
 function App() {
   return (
     <div className="font-poppins">
