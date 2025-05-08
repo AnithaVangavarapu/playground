@@ -17,7 +17,9 @@ export default UserContext;
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [isAuth, setIsAuth] = useState<boolean>(false);
   const value = { isAuth, setIsAuth };
-
+  useEffect(() => {
+    localStorage.setItem("isUserLoggedIn", String(isAuth));
+  }, [isAuth]);
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user?.email?.endsWith("@quadone.com")) {

@@ -2,12 +2,13 @@ import { User, LogOut } from "lucide-react";
 import { useContext, useState } from "react";
 import UserContext from "../context/UserProvider";
 import { signOut } from "firebase/auth";
+import { auth } from "../Firebase";
 const Header = () => {
   const contextData = useContext(UserContext);
   const { setIsAuth } = contextData;
   const [showpopup, setShowpopup] = useState<boolean>(false);
   const handleLogout = async () => {
-    await signOut;
+    await signOut(auth);
     setIsAuth(false);
     localStorage.setItem("isUserLoggedIn", "false");
   };

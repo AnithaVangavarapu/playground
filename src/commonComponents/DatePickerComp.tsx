@@ -10,18 +10,26 @@ interface ClassNames {
   label?: string;
   error?: string;
 }
-interface Props {
+interface DatePickerCompProps {
+  id: string;
   label?: string;
-  onChange: (val: Date | null) => void;
+  onChange: (val: Date | null, id: string) => void;
   error?: string;
   classnames?: ClassNames;
-  placeholder: string;
+  placeholder?: string;
 }
 
-const Date = ({ label, onChange, classnames, error, placeholder }: Props) => {
+const DatePickerComp = ({
+  id,
+  label,
+  onChange,
+  classnames,
+  error,
+  placeholder,
+}: DatePickerCompProps) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   return (
-    <div className={twMerge(clsx(`m-1`, classnames?.outerdiv))}>
+    <div className={twMerge(clsx(`m-1`, classnames?.outerdiv))} id={id}>
       <label className={twMerge(clsx(`text-[12px]`, classnames?.label))}>
         {label}
       </label>
@@ -36,7 +44,7 @@ const Date = ({ label, onChange, classnames, error, placeholder }: Props) => {
         <DatePicker
           selected={selectedDate}
           onSelect={(date) => setSelectedDate(date)}
-          onChange={(date) => onChange(date)}
+          onChange={(date) => onChange(date, id)}
           className="focus:outline-none text-[10px] p-1"
           placeholderText={placeholder}
         />
@@ -55,4 +63,4 @@ const Date = ({ label, onChange, classnames, error, placeholder }: Props) => {
   );
 };
 
-export default Date;
+export default DatePickerComp;

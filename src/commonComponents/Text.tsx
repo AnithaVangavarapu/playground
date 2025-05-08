@@ -10,9 +10,9 @@ interface ClassNames {
 interface Props {
   label?: string;
   placeholder?: string;
-  id?: string;
+  id: string;
   name?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (val: string, id: string) => void;
   error?: string;
   classnames?: ClassNames;
 }
@@ -34,7 +34,7 @@ const Text = ({
         type="text"
         name={name}
         id={id}
-        onChange={onChange}
+        onChange={(e) => onChange(e.target.value, id)}
         placeholder={placeholder}
         className={twMerge(
           clsx(
