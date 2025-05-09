@@ -40,12 +40,11 @@ export interface ValuePopulateFrom {
 export interface BaseField {
   id: string;
   type: string;
-
   label?: string;
   placeholder?: string;
   validation?: Validation;
   visibilityDependsOn?: VisibilityCondition;
-  readonly?: boolean;
+  readOnly?: boolean;
 }
 export interface DateField extends BaseField {
   type: "date";

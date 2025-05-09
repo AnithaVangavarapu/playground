@@ -8,31 +8,49 @@ import { useState } from "react";
 interface Props {
   label?: string;
   error?: string;
-  handleChange: (val: string) => void;
+  handleChange: (val: string, id: string) => void;
+  id: string;
+  placeholder?: string;
+  required?: boolean;
+  visible?: boolean;
+  readonly?: boolean;
 }
-const Time = ({ label, error, handleChange }: Props) => {
+const Time = ({
+  label,
+  error,
+  handleChange,
+  id,
+  placeholder,
+  required,
+  visible,
+  readonly,
+}: Props) => {
   const [time, setTime] = useState<DateObject | null>(null);
+  console.log("visible", visible);
   const handleTime = () => {
     if (time !== null) {
       console.log(time.format("hh:mm a"));
       const Time = time.format("hh:mm a");
-      handleChange(Time);
+      handleChange(Time, id);
     }
   };
   return (
-    <div className={twMerge(clsx("m-1"))}>
-      <label className={twMerge(clsx("text-[12px]"))}>{label}</label>
+    <div className={twMerge(clsx("m-1"))} hidden={visible}>
+      <label className={twMerge(clsx("text-[12px]"))}>
+        {label} {required && <span className="text-red-400">*</span>}
+      </label>
       <div className="flex border justify-between p-1 rounded-lg border-gray-200">
         <DatePicker
           disableDayPicker
           format="hh:mm A"
           plugins={[<TimePicker hideSeconds />]}
-          placeholder="Select time"
+          placeholder={placeholder}
           onChange={(date) => {
             setTime(date), handleTime();
           }}
           value={time}
           inputClass="custom-input"
+          readOnly={readonly}
         />
         <Clock width={15} color="gray" />
       </div>

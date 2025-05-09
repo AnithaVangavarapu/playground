@@ -12,11 +12,13 @@ interface Option {
 }
 interface Props {
   options: Option[];
-  label: string;
+  label?: string;
   placeholder?: string;
-  onChange: (val: string) => void;
+  onChange: (val: string, id: string) => void;
   classnames?: ClassNames;
   error?: string;
+  id: string;
+  required?: boolean;
 }
 
 const Dropdown = ({
@@ -26,14 +28,17 @@ const Dropdown = ({
   onChange,
   classnames,
   error,
+  id,
+  required,
 }: Props) => {
   return (
     <div className={twMerge(clsx(`m-1`, classnames?.div))}>
       <label className={twMerge(clsx("text-[12px]", classnames?.label))}>
         {label}
+        {required && <span className="text-red-400">*</span>}
       </label>
       <select
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange(e.target.value, id)}
         className={twMerge(
           clsx(`w-full border rounded-lg p-1 text-[10px]`, classnames?.select)
         )}

@@ -17,6 +17,8 @@ interface DatePickerCompProps {
   error?: string;
   classnames?: ClassNames;
   placeholder?: string;
+  required?: boolean;
+  readonly?: boolean;
 }
 
 const DatePickerComp = ({
@@ -26,12 +28,15 @@ const DatePickerComp = ({
   classnames,
   error,
   placeholder,
+  required,
+  readonly,
 }: DatePickerCompProps) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   return (
     <div className={twMerge(clsx(`m-1`, classnames?.outerdiv))} id={id}>
       <label className={twMerge(clsx(`text-[12px]`, classnames?.label))}>
         {label}
+        {required && <span className="text-red-400">*</span>}
       </label>
       <div
         className={twMerge(
@@ -47,6 +52,7 @@ const DatePickerComp = ({
           onChange={(date) => onChange(date, id)}
           className="focus:outline-none text-[10px] p-1"
           placeholderText={placeholder}
+          readOnly={readonly}
         />
         <Calendar color="gray " width={15} className="m-1" />
       </div>

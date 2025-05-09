@@ -15,6 +15,9 @@ interface Props {
   onChange: (val: string, id: string) => void;
   error?: string;
   classnames?: ClassNames;
+  required?: boolean;
+  readonly?: boolean;
+  value?: string;
 }
 const Text = ({
   label,
@@ -24,11 +27,15 @@ const Text = ({
   onChange,
   error,
   classnames,
+  required,
+  readonly,
+  value,
 }: Props) => {
   return (
     <div className={twMerge(clsx(`m-1`, classnames?.div))}>
       <label className={twMerge(clsx(`text-[12px]`, classnames?.label))}>
         {label}
+        {required && <span className="text-red-400">*</span>}
       </label>
       <input
         type="text"
@@ -42,6 +49,8 @@ const Text = ({
             classnames?.input
           )
         )}
+        readOnly={readonly}
+        value={value}
       />
       {error && (
         <p

@@ -2614,11 +2614,6 @@ react-element-popper@^2.1.6:
   resolved "https://registry.yarnpkg.com/react-element-popper/-/react-element-popper-2.1.7.tgz#924aac2dd8d8f0efa344987690fa462cab00e710"
   integrity sha512-tuM2OxKlW32h+6uFSK6EENHPeZ2OGgOipHfOAl+VLWEv9/j3QkSGbD+ADX3A9uJlmq24i37n28RjJmAbGTfpEg==
 
-react-hook-form@^7.56.3:
-  version "7.56.3"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.56.3.tgz#c459f59fead379db30113951152e13db386cc015"
-  integrity sha512-IK18V6GVbab4TAo1/cz3kqajxbDPGofdF0w7VHdCo0Nt8PrPlOZcuuDq9YYIV1BtjcX78x0XsldbQRQnQXWXmw==
-
 react-multi-date-picker@^4.5.2:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/react-multi-date-picker/-/react-multi-date-picker-4.5.2.tgz#d618c0d682efd2eb99c12eee3012f61368e2b427"
