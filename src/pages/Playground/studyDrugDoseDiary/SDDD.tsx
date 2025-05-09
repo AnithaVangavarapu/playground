@@ -88,7 +88,7 @@ const SDDD = () => {
             }
             required={numberField.validation?.required?.value === true}
             readonly={numberField.readOnly === true}
-            defaultValue={
+            value={
               numberField.valuePopulateFrom
                 ? PopulateForm(numberField.valuePopulateFrom, formStateData)
                 : undefined
