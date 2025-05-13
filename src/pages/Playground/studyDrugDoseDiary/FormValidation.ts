@@ -1,9 +1,7 @@
-import { useState } from "react";
 import { type Validation } from "../../../types/types";
 export const FormValidation = (
   validationRules: Validation,
   value: string,
-  id: string,
   fieldType: string
 ) => {
   if (
