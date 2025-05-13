@@ -49,7 +49,7 @@ export const useSDDD = () => {
             const error = FormValidation(
               item?.validation,
               value,
-              item?.id,
+
               item.type
             );
             if (error) {
@@ -63,7 +63,7 @@ export const useSDDD = () => {
           const error = FormValidation(
             field?.validation,
             value,
-            field?.id,
+
             field.type
           );
           if (error) {
