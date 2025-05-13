@@ -41,7 +41,7 @@ const DatePickerComp = ({
       <div
         className={twMerge(
           clsx(
-            `flex border justify-between items-center rounded-lg `,
+            `flex border border-gray-200 justify-between items-center rounded-lg `,
             classnames?.innerdiv
           )
         )}

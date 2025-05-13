@@ -32,10 +32,12 @@ export const FormValidation = (
     }
   }
   if (validationRules?.pattern) {
-    if (!validationRules?.pattern?.pattern.match(value)) {
-      return validationRules?.pattern?.message;
+    const regex = new RegExp(validationRules.pattern.pattern);
+    if (!regex.test(value)) {
+      return validationRules.pattern.message;
     }
   }
+
   if (validationRules?.range) {
     if (fieldType === "number") {
       if (

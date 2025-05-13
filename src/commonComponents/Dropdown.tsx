@@ -40,7 +40,10 @@ const Dropdown = ({
       <select
         onChange={(e) => onChange(e.target.value, id)}
         className={twMerge(
-          clsx(`w-full border rounded-lg p-1 text-[10px]`, classnames?.select)
+          clsx(
+            `w-full border border-gray-200 rounded-lg p-1.5 text-[10px]`,
+            classnames?.select
+          )
         )}
       >
         {placeholder && <option value="">{placeholder}</option>}

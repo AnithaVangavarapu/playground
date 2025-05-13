@@ -45,7 +45,7 @@ const Text = ({
         placeholder={placeholder}
         className={twMerge(
           clsx(
-            `border w-full rounded-lg border-gray-200 p-1 text-[10px]`,
+            `border w-full rounded-lg border-gray-200 p-1.5 text-[10px]`,
             classnames?.input
           )
         )}

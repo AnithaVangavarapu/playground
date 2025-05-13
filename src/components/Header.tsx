@@ -18,7 +18,7 @@ const Header = () => {
 
       <div className="flex gap-4 items-center ">
         <p className="text-sm">Playground</p>
-        <div className="relative">
+        <div className="relative cursor-pointer">
           <User
             width={30}
             color="gray"
