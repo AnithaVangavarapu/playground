@@ -1,5 +1,5 @@
-import { type ValuePopulateFrom } from "../../../types/types";
-export const PopulateForm = (
+import { type ValuePopulateFrom } from "../../../../types/types";
+export const populateForm = (
   populateFormValues: ValuePopulateFrom,
   formStateData: Record<string, any>
 ) => {
@@ -14,7 +14,7 @@ export const PopulateForm = (
           (acc, item) => acc * Number(formStateData[item]),
           1
         );
-        console.log("total", total);
+        // console.log("total", total);
         return isNaN(total) ? defaultValue : String(total);
       default:
         return;

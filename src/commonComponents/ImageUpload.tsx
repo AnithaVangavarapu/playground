@@ -46,7 +46,7 @@ const ImageUpload = ({
   };
   return (
     <div className={twMerge(clsx("mx-1 mt-3"))}>
-      <div className="text-[12px]">
+      <div className="text-[12px] text-gray-500  font-medium">
         {label} {required && <span className="text-red-400">*</span>}
       </div>
       <div
@@ -61,7 +61,7 @@ const ImageUpload = ({
           <button
             type="button"
             onClick={handleUpload}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 text-gray-400"
           >
             <Upload width={15} color="gray" />
             {placeholder || "Upload Image"}

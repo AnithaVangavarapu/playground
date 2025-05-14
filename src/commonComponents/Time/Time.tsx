@@ -4,7 +4,7 @@ import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import { twMerge } from "tw-merge";
 import { Clock } from "lucide-react";
 import "./time.css";
-import { useState } from "react";
+import React, { useState } from "react";
 interface Props {
   label?: string;
   error?: string;
@@ -26,7 +26,7 @@ const Time = ({
   readonly,
 }: Props) => {
   const [time, setTime] = useState<DateObject | null>(null);
-  console.log("visible", visible);
+  console.log("rendered time component");
   const handleTime = () => {
     if (time !== null) {
       console.log(time.format("hh:mm a"));
@@ -36,7 +36,9 @@ const Time = ({
   };
   return (
     <div className={twMerge(clsx("m-1"))} hidden={visible}>
-      <label className={twMerge(clsx("text-[12px]"))}>
+      <label
+        className={twMerge(clsx("text-[12px] text-gray-500  font-medium"))}
+      >
         {label} {required && <span className="text-red-400">*</span>}
       </label>
       <div className="flex border justify-between p-1 rounded-lg border-gray-200">
@@ -60,5 +62,16 @@ const Time = ({
     </div>
   );
 };
-
-export default Time;
+const isPropsEqual = (prevProps: Props, nextProps: Props) => {
+  return (
+    prevProps.id === nextProps.id &&
+    prevProps.label === nextProps.label &&
+    prevProps.error === nextProps.error &&
+    prevProps.placeholder === nextProps.placeholder &&
+    prevProps.readonly === nextProps.readonly &&
+    prevProps.required === nextProps.required &&
+    prevProps.visible === nextProps.visible
+  );
+};
+export default React.memo(Time, isPropsEqual);
+// export default Time;

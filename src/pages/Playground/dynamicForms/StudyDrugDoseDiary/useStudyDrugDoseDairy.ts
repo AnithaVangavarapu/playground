@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { type FormFieldProp, type FormActions } from "../../../types/types";
-import { FormValidation } from "./FormValidation";
+import { useState, useEffect, useCallback } from "react";
+import { type FormFieldProp, type FormActions } from "../../../../types/types";
+import { formValidation } from "../../formUtils/Functions/formValidation";
 interface FormDataProps {
   formId: string;
   formTitle: string;
@@ -8,7 +8,7 @@ interface FormDataProps {
   fields: FormFieldProp[];
   actions?: FormActions;
 }
-export const useSDDD = () => {
+export const useStudyDrugDoseDairy = () => {
   const [formData, setFormData] = useState<FormDataProps | null>(null);
   const [title, setTitle] = useState<string>("");
   const [fields, setFields] = useState<FormFieldProp[]>([]);
@@ -30,12 +30,12 @@ export const useSDDD = () => {
     }
   }, [formData]);
 
-  const handleChange = (val: any, id: string) => {
+  const handleChange = useCallback((val: any, id: string) => {
     setFormStateData((prev) => ({
       ...prev,
       [id]: val,
     }));
-  };
+  }, []);
 
   const handleFormValidation = async () => {
     let errors: Record<string, any> = {};
@@ -46,7 +46,7 @@ export const useSDDD = () => {
         items.forEach((item: FormFieldProp) => {
           if (item.validation) {
             const value = formStateData[item.id] ? formStateData[item.id] : "";
-            const error = FormValidation(
+            const error = formValidation(
               item?.validation,
               value,
 
@@ -60,7 +60,7 @@ export const useSDDD = () => {
       } else {
         if (field.validation) {
           const value = formStateData[field.id] ? formStateData[field.id] : "";
-          const error = FormValidation(
+          const error = formValidation(
             field?.validation,
             value,
 

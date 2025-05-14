@@ -1,7 +1,7 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Calendar } from "lucide-react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { twMerge } from "tw-merge";
 import clsx from "clsx";
 interface ClassNames {
@@ -31,10 +31,15 @@ const DatePickerComp = ({
   required,
   readonly,
 }: DatePickerCompProps) => {
+  console.log("DatePicker rendered");
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   return (
     <div className={twMerge(clsx(`m-1`, classnames?.outerdiv))} id={id}>
-      <label className={twMerge(clsx(`text-[12px]`, classnames?.label))}>
+      <label
+        className={twMerge(
+          clsx(`text-[12px] text-gray-500  font-medium`, classnames?.label)
+        )}
+      >
         {label}
         {required && <span className="text-red-400">*</span>}
       </label>
@@ -68,5 +73,18 @@ const DatePickerComp = ({
     </div>
   );
 };
-
-export default DatePickerComp;
+const isPropsEqual = (
+  prevProps: DatePickerCompProps,
+  nextProps: DatePickerCompProps
+) => {
+  return (
+    prevProps.id === nextProps.id &&
+    prevProps.label === nextProps.label &&
+    prevProps.error === nextProps.error &&
+    prevProps.placeholder === nextProps.placeholder &&
+    prevProps.readonly === nextProps.readonly &&
+    prevProps.required === nextProps.required
+  );
+};
+export default React.memo(DatePickerComp, isPropsEqual);
+// export default DatePickerComp;

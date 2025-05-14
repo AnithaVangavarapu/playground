@@ -1,6 +1,5 @@
-import { useSDDD } from "./useSDDD";
-import { VisibilityCheck } from "./VisibilityCheck";
-import { PopulateForm } from "./PopulateForm";
+import { visibilityCheck } from "./Functions/visibilityCheck";
+import { populateForm } from "./Functions/populateForm";
 import {
   type ColumnLayoutFiled,
   type FormFieldProp,
@@ -20,19 +19,23 @@ import {
   TextArea,
   Time,
 } from "../../../commonComponents";
-const SDDD = () => {
-  const {
-    title,
-    fields,
-    handleChange,
-    handleFormSUbmit,
-    formErrors,
-    formStateData,
-  } = useSDDD();
 
-  const renderField = (field: FormFieldProp) => {
-    const type: string = field.type;
+interface Props {
+  field: FormFieldProp;
+  handleChange: (val: any, id: string) => void;
+  formErrors: Record<string, string>;
+  formStateData: Record<string, any>;
+}
 
+const RenderField = ({
+  field,
+  handleChange,
+  formErrors,
+  formStateData,
+}: Props) => {
+  const type: string = field.type;
+  console.log("field that rerenders", field.id);
+  const renderedField = () => {
     switch (type) {
       case "date":
         const DatePickerField = field as DateField;
@@ -68,7 +71,12 @@ const SDDD = () => {
           >
             {columnLayoutField.items.map((item) => (
               <div key={item.id} className="">
-                {renderField(item)}
+                <RenderField
+                  field={item}
+                  handleChange={handleChange}
+                  formErrors={formErrors}
+                  formStateData={formStateData}
+                />
               </div>
             ))}
           </div>
@@ -90,7 +98,7 @@ const SDDD = () => {
             readonly={numberField.readOnly === true}
             value={
               numberField.valuePopulateFrom
-                ? PopulateForm(numberField.valuePopulateFrom, formStateData)
+                ? populateForm(numberField.valuePopulateFrom, formStateData)
                 : undefined
             }
           />
@@ -129,7 +137,7 @@ const SDDD = () => {
             required={timeField.validation?.required?.value === true}
             visible={
               timeField.visibilityDependsOn &&
-              VisibilityCheck(timeField.visibilityDependsOn, formStateData)
+              visibilityCheck(timeField.visibilityDependsOn, formStateData)
             }
             readonly={timeField.readOnly === true}
           />
@@ -166,6 +174,10 @@ const SDDD = () => {
                 : undefined
             }
             readonly={textField.readOnly === true}
+            visible={
+              textField.visibilityDependsOn &&
+              visibilityCheck(textField.visibilityDependsOn, formStateData)
+            }
           />
         );
       case "textarea":
@@ -185,29 +197,12 @@ const SDDD = () => {
             readonly={textareaField.readOnly === true}
           />
         );
+      default:
+        return null;
     }
   };
-  return (
-    <div className="mx-40 p-4">
-      <div>{title}</div>
-      <form
-        className="border rounded-lg border-gray-200 bg-white p-2"
-        onSubmit={handleFormSUbmit}
-      >
-        {fields.map((field) => (
-          <div key={field.id}>{renderField(field)}</div>
-        ))}
-        <div className="text-center">
-          <button
-            className="border rounded-lg p-1 text-[10px] w-15 font-medium bg-blue-950 text-white border-blue-950 cursor-pointer"
-            type="submit"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
-  );
+
+  return <>{renderedField()}</>;
 };
 
-export default SDDD;
+export default RenderField;

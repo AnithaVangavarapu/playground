@@ -3,8 +3,8 @@ import { UserProvider } from "./context/UserProvider";
 import { SignIn } from "./pages/SignIn";
 import { ToastContainer } from "react-toastify";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
-import { SDDD } from "./pages/Playground/studyDrugDoseDiary";
-import { InsulineDiary } from "./pages/Playground/insulineDiary";
+import { StudyDrugDoseDairy } from "./pages/Playground/dynamicForms/StudyDrugDoseDiary";
+import { InsulineDiary } from "./pages/Playground/dynamicForms/InsulineDiary";
 
 function App() {
   return (
@@ -14,8 +14,11 @@ function App() {
           <Routes>
             <Route path="/signin" element={<SignIn />} />
             <Route element={<ProtectedRoutes />}>
-              <Route path="/" element={<SDDD />} />
-              <Route path="/studyDrugDoseDiary" element={<SDDD />} />
+              <Route path="/" element={<StudyDrugDoseDairy />} />
+              <Route
+                path="/studyDrugDoseDiary"
+                element={<StudyDrugDoseDairy />}
+              />
               <Route path="/insulineDiary" element={<InsulineDiary />} />
             </Route>
           </Routes>

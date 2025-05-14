@@ -1,6 +1,6 @@
-import type { VisibilityCondition } from "../../../types/types";
+import type { VisibilityCondition } from "../types/types";
 
-export const VisibilityCheck = (
+export const visibilityCheck = (
   condition: VisibilityCondition,
   formStateData: Record<string, any>
 ) => {

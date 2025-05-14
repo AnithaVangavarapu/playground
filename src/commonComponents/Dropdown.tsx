@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { twMerge } from "tw-merge";
+import React from "react";
 interface ClassNames {
   div?: string;
   label?: string;
@@ -31,9 +32,14 @@ const Dropdown = ({
   id,
   required,
 }: Props) => {
+  console.log("dropdown rendered");
   return (
     <div className={twMerge(clsx(`m-1`, classnames?.div))}>
-      <label className={twMerge(clsx("text-[12px]", classnames?.label))}>
+      <label
+        className={twMerge(
+          clsx("text-[12px] text-gray-500  font-medium", classnames?.label)
+        )}
+      >
         {label}
         {required && <span className="text-red-400">*</span>}
       </label>
@@ -41,7 +47,7 @@ const Dropdown = ({
         onChange={(e) => onChange(e.target.value, id)}
         className={twMerge(
           clsx(
-            `w-full border border-gray-200 rounded-lg p-1.5 text-[10px]`,
+            `w-full border border-gray-200 rounded-lg p-1.5 text-[10px] text-gray-400`,
             classnames?.select
           )
         )}
@@ -65,5 +71,14 @@ const Dropdown = ({
     </div>
   );
 };
-
-export default Dropdown;
+const isPropsEqual = (prevProps: Props, nextProps: Props) => {
+  return (
+    prevProps.id === nextProps.id &&
+    prevProps.label === nextProps.label &&
+    prevProps.error === nextProps.error &&
+    prevProps.placeholder === nextProps.placeholder &&
+    prevProps.required === nextProps.required
+  );
+};
+// export default Dropdown;
+export default React.memo(Dropdown, isPropsEqual);
