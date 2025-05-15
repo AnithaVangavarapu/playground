@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { twMerge } from "tw-merge";
+import React from "react";
 
 interface ClassNames {
   div?: string;
@@ -29,6 +30,7 @@ const TextArea = ({
   required,
   readonly,
 }: Props) => {
+  console.log("TextArea rendered");
   return (
     <div className={twMerge(clsx(`m-1`, classnames?.div))}>
       <label
@@ -64,5 +66,15 @@ const TextArea = ({
     </div>
   );
 };
-
-export default TextArea;
+const isPropsEqual = (prevProps: Props, nextProps: Props) => {
+  return (
+    prevProps.id === nextProps.id &&
+    prevProps.label === nextProps.label &&
+    prevProps.name === nextProps.name &&
+    prevProps.placeholder === nextProps.placeholder &&
+    prevProps.readonly === nextProps.readonly &&
+    prevProps.required === nextProps.required &&
+    prevProps.error === nextProps.error
+  );
+};
+export default React.memo(TextArea, isPropsEqual);

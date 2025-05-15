@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { twMerge } from "tw-merge";
-import React from "react";
+import React, { useCallback, useState } from "react";
 interface ClassNames {
   div?: string;
   label?: string;
@@ -32,7 +32,15 @@ const Dropdown = ({
   id,
   required,
 }: Props) => {
-  console.log("dropdown rendered");
+  console.log("===dropdown rendered for ", id);
+  const [value, setValue] = useState<string>("");
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setValue(e.target.value);
+      onChange(e.target.value, id);
+    },
+    [id, onChange]
+  );
   return (
     <div className={twMerge(clsx(`m-1`, classnames?.div))}>
       <label
@@ -44,13 +52,14 @@ const Dropdown = ({
         {required && <span className="text-red-400">*</span>}
       </label>
       <select
-        onChange={(e) => onChange(e.target.value, id)}
+        onChange={handleChange}
         className={twMerge(
           clsx(
             `w-full border border-gray-200 rounded-lg p-1.5 text-[10px] text-gray-400`,
             classnames?.select
           )
         )}
+        value={value}
       >
         {placeholder && <option value="">{placeholder}</option>}
         {options.map((option) => (
@@ -77,7 +86,8 @@ const isPropsEqual = (prevProps: Props, nextProps: Props) => {
     prevProps.label === nextProps.label &&
     prevProps.error === nextProps.error &&
     prevProps.placeholder === nextProps.placeholder &&
-    prevProps.required === nextProps.required
+    prevProps.required === nextProps.required &&
+    prevProps.onChange === nextProps.onChange
   );
 };
 // export default Dropdown;

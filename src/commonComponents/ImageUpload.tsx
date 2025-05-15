@@ -1,5 +1,5 @@
 import { Upload, X } from "lucide-react";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { twMerge } from "tw-merge";
 import clsx from "clsx";
 interface Props {
@@ -21,6 +21,7 @@ const ImageUpload = ({
   required,
   readonly,
 }: Props) => {
+  console.log("ImageUpload REndered");
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [fileName, setFileName] = useState<string | null>(null);
@@ -118,4 +119,15 @@ const ImageUpload = ({
   );
 };
 
-export default ImageUpload;
+const isPropsEqual = (prevProps: Props, nextProps: Props) => {
+  return (
+    prevProps.id === nextProps.id &&
+    prevProps.label === nextProps.label &&
+    prevProps.placeholder === nextProps.placeholder &&
+    prevProps.readonly === nextProps.readonly &&
+    prevProps.required === nextProps.required &&
+    prevProps.error === nextProps.error
+  );
+};
+
+export default React.memo(ImageUpload, isPropsEqual);
