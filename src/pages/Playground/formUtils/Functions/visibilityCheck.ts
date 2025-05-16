@@ -2,12 +2,12 @@ import type { VisibilityCondition } from "../../../../types/types";
 
 export const visibilityCheck = (
   condition: VisibilityCondition,
-  fieldvalue: any
+  formStateData: Record<string, any>
 ) => {
-  // const field = condition.field;
+  const field = condition.field;
   const action = condition.condition;
   const value = condition.value;
-  const fieldValue = fieldvalue;
+  const fieldValue = formStateData[field];
 
   switch (action) {
     case "equals":

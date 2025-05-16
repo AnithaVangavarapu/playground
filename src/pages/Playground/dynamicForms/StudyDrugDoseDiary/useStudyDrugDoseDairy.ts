@@ -41,16 +41,23 @@ export const useStudyDrugDoseDairy = () => {
     let errors: Record<string, any> = {};
 
     fields.forEach((field: FormFieldProp) => {
+      const getVisibility = (f: FormFieldProp) => {
+        if (!f.visibilityDependsOn) return true;
+        const dependsOnValue = formStateData[f.visibilityDependsOn.field];
+        return dependsOnValue === f.visibilityDependsOn.value;
+      };
+
       if (field.type === "columnLayout") {
         const items = field.items;
         items.forEach((item: FormFieldProp) => {
           if (item.validation) {
+            const isVisible = getVisibility(item);
             const value = formStateData[item.id] ? formStateData[item.id] : "";
             const error = formValidation(
               item?.validation,
               value,
-
-              item.type
+              item.type,
+              isVisible
             );
             if (error) {
               errors[item.id] = error;
@@ -59,12 +66,13 @@ export const useStudyDrugDoseDairy = () => {
         });
       } else {
         if (field.validation) {
+          const isVisible = getVisibility(field);
           const value = formStateData[field.id] ? formStateData[field.id] : "";
           const error = formValidation(
             field?.validation,
             value,
-
-            field.type
+            field.type,
+            isVisible
           );
           if (error) {
             errors[field.id] = error;

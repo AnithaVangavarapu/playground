@@ -1,5 +1,6 @@
 import { visibilityCheck } from "./Functions/visibilityCheck";
 import { populateForm } from "./Functions/populateForm";
+// import { isEqual } from "lodash";
 import {
   type ColumnLayoutFiled,
   type FormFieldProp,
@@ -19,15 +20,21 @@ import {
   TextArea,
   Time,
 } from "../../../commonComponents";
-import React from "react";
+// import React from "react";
 interface Props {
   field: FormFieldProp;
   handleChange: (val: any, id: string) => void;
-  error: string;
-  value: any;
+
+  formErrors: Record<string, string>;
+  formStateData: Record<string, any>;
 }
 
-const RenderField = ({ field, handleChange, error, value }: Props) => {
+const RenderField = ({
+  field,
+  handleChange,
+  formErrors,
+  formStateData,
+}: Props) => {
   const type: string = field.type;
   console.log("field that rerenders", field.id);
   const renderedField = () => {
@@ -40,7 +47,11 @@ const RenderField = ({ field, handleChange, error, value }: Props) => {
             id={DatePickerField.id}
             label={DatePickerField.label}
             placeholder={DatePickerField.placeholder}
-            error={error ? error : undefined}
+            error={
+              formErrors[DatePickerField.id]
+                ? formErrors[DatePickerField.id]
+                : undefined
+            }
             required={DatePickerField.validation?.required?.value === true}
             readonly={DatePickerField.readOnly === true}
           />
@@ -65,8 +76,8 @@ const RenderField = ({ field, handleChange, error, value }: Props) => {
                 <RenderField
                   field={item}
                   handleChange={handleChange}
-                  error={error}
-                  value={value}
+                  formErrors={formErrors}
+                  formStateData={formStateData}
                 />
               </div>
             ))}
@@ -80,12 +91,16 @@ const RenderField = ({ field, handleChange, error, value }: Props) => {
             id={numberField.id}
             label={numberField.label}
             placeholder={numberField.placeholder}
-            error={error ? error : undefined}
+            error={
+              formErrors[numberField.id]
+                ? formErrors[numberField.id]
+                : undefined
+            }
             required={numberField.validation?.required?.value === true}
             readonly={numberField.readOnly === true}
             value={
               numberField.valuePopulateFrom
-                ? populateForm(numberField.valuePopulateFrom, value)
+                ? populateForm(numberField.valuePopulateFrom, formStateData)
                 : undefined
             }
           />
@@ -99,8 +114,13 @@ const RenderField = ({ field, handleChange, error, value }: Props) => {
             onChange={handleChange}
             id={selectField.id}
             placeholder={selectField.placeholder}
-            error={error ? error : undefined}
+            error={
+              formErrors[selectField.id]
+                ? formErrors[selectField.id]
+                : undefined
+            }
             required={selectField.validation?.required?.value === true}
+            value={formStateData[selectField.id]}
           />
         );
 
@@ -112,11 +132,13 @@ const RenderField = ({ field, handleChange, error, value }: Props) => {
             id={timeField.id}
             label={timeField.label}
             placeholder={timeField.placeholder}
-            error={error ? error : undefined}
+            error={
+              formErrors[timeField.id] ? formErrors[timeField.id] : undefined
+            }
             required={timeField.validation?.required?.value === true}
             visible={
               timeField.visibilityDependsOn &&
-              visibilityCheck(timeField.visibilityDependsOn, value)
+              visibilityCheck(timeField.visibilityDependsOn, formStateData)
             }
             readonly={timeField.readOnly === true}
           />
@@ -129,7 +151,11 @@ const RenderField = ({ field, handleChange, error, value }: Props) => {
             id={fileUploadField.id}
             label={fileUploadField.label}
             placeholder={fileUploadField.placeholder}
-            error={error ? error : undefined}
+            error={
+              formErrors[fileUploadField.id]
+                ? formErrors[fileUploadField.id]
+                : undefined
+            }
             required={fileUploadField.validation?.required?.value === true}
             readonly={fileUploadField.readOnly === true}
           />
@@ -143,11 +169,13 @@ const RenderField = ({ field, handleChange, error, value }: Props) => {
             label={textField.label}
             placeholder={textField.placeholder}
             required={textField.validation?.required?.value === true}
-            error={error ? error : undefined}
+            error={
+              formErrors[textField.id] ? formErrors[textField.id] : undefined
+            }
             readonly={textField.readOnly === true}
             visible={
               textField.visibilityDependsOn &&
-              visibilityCheck(textField.visibilityDependsOn, value)
+              visibilityCheck(textField.visibilityDependsOn, formStateData)
             }
           />
         );
@@ -159,7 +187,11 @@ const RenderField = ({ field, handleChange, error, value }: Props) => {
             id={textareaField.id}
             label={textareaField.label}
             placeholder={textareaField.placeholder}
-            error={error ? error : undefined}
+            error={
+              formErrors[textareaField.id]
+                ? formErrors[textareaField.id]
+                : undefined
+            }
             required={textareaField.validation?.required?.value === true}
             readonly={textareaField.readOnly === true}
           />
@@ -171,12 +203,13 @@ const RenderField = ({ field, handleChange, error, value }: Props) => {
 
   return <>{renderedField()}</>;
 };
-const isPropsEqual = (prevProps: Props, nextProps: Props) => {
-  return (
-    prevProps.field.id === nextProps.field.id &&
-    prevProps.error === nextProps.error &&
-    prevProps.value === nextProps.value &&
-    prevProps.handleChange === nextProps.handleChange
-  );
-};
-export default React.memo(RenderField, isPropsEqual);
+export default RenderField;
+// const isPropsEqual = (prevProps: Props, nextProps: Props) => {
+//   return (
+//     prevProps.field.id === nextProps.field.id &&
+//     prevProps.error === nextProps.error &&
+//     prevProps.value === nextProps.value &&
+//     isEqual(prevProps.field, nextProps.field)
+//   );
+// };
+// export default React.memo(RenderField, isPropsEqual);

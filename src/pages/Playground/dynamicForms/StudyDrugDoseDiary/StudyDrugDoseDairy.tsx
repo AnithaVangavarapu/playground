@@ -19,31 +19,14 @@ const StudyDrugDoseDairy = React.memo(() => {
         onSubmit={handleFormSUbmit}
       >
         {fields.map((field) => {
-          if (field.type === "columnLayout") {
-            const items = field.items;
-            items.forEach((item) => {
-              return (
-                <div key={item.id}>
-                  {
-                    <RenderField
-                      field={item}
-                      handleChange={handleChange}
-                      error={formErrors[item.id]}
-                      value={formStateData[item.id]}
-                    />
-                  }
-                </div>
-              );
-            });
-          }
           return (
             <div key={field.id}>
               {
                 <RenderField
                   field={field}
                   handleChange={handleChange}
-                  error={formErrors[field.id]}
-                  value={formStateData[field.id]}
+                  formErrors={formErrors}
+                  formStateData={formStateData}
                 />
               }
             </div>

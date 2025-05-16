@@ -93,7 +93,9 @@ const isPropsEqual = (prevProps: Props, nextProps: Props) => {
     prevProps.readonly === nextProps.readonly &&
     prevProps.required === nextProps.required &&
     prevProps.value === nextProps.value &&
-    prevProps.visible === nextProps.visible
+    prevProps.visible === nextProps.visible &&
+    prevProps.onChange === nextProps.onChange
   );
 };
 export default React.memo(Text, isPropsEqual);
+// export default Text;

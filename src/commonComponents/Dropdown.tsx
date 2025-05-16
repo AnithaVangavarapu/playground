@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { twMerge } from "tw-merge";
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 interface ClassNames {
   div?: string;
   label?: string;
@@ -20,6 +20,7 @@ interface Props {
   error?: string;
   id: string;
   required?: boolean;
+  value: string;
 }
 
 const Dropdown = ({
@@ -31,12 +32,12 @@ const Dropdown = ({
   error,
   id,
   required,
+  value,
 }: Props) => {
   console.log("===dropdown rendered for ", id);
-  const [value, setValue] = useState<string>("");
+
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setValue(e.target.value);
       onChange(e.target.value, id);
     },
     [id, onChange]
@@ -87,7 +88,8 @@ const isPropsEqual = (prevProps: Props, nextProps: Props) => {
     prevProps.error === nextProps.error &&
     prevProps.placeholder === nextProps.placeholder &&
     prevProps.required === nextProps.required &&
-    prevProps.onChange === nextProps.onChange
+    prevProps.onChange === nextProps.onChange &&
+    prevProps.value === nextProps.value
   );
 };
 // export default Dropdown;

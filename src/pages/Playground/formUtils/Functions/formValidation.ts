@@ -2,8 +2,10 @@ import { type Validation } from "../../../../types/types";
 export const formValidation = (
   validationRules: Validation,
   value: string,
-  fieldType: string
+  fieldType: string,
+  isVisible: boolean
 ) => {
+  if (!isVisible) return null;
   if (
     (validationRules?.required?.value && value === "") ||
     value === undefined ||
