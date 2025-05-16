@@ -48,7 +48,7 @@ const TextArea = ({
         placeholder={placeholder}
         className={twMerge(
           clsx(
-            `border w-full rounded-lg border-gray-200 p-1 text-[10px] h-15`,
+            `border w-full rounded-lg border-gray-200 p-1 text-[10px] h-15 focus:outline-none`,
             classnames?.textArea
           )
         )}

@@ -56,7 +56,7 @@ const Dropdown = ({
         onChange={handleChange}
         className={twMerge(
           clsx(
-            `w-full border border-gray-200 rounded-lg p-1.5 text-[10px] text-gray-400`,
+            `w-full border border-gray-200 rounded-lg p-1.5 text-[10px] text-gray-400 focus:outline-none`,
             classnames?.select
           )
         )}
